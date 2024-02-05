@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.20;
 
 /**
@@ -14,7 +14,7 @@ contract Voting {
     }
 
     ///@notice Default voting period for which voting would be open
-    uint256 immutable DEFAULT_VOTING_PERIOD;
+    uint256 immutable public DEFAULT_VOTING_PERIOD;
 
     ///@notice Mapping of items' id to Item struct
     mapping(uint256 => Item) public items;
@@ -32,9 +32,6 @@ contract Voting {
 
     ///@notice Emitted when user votes for an item
     event Voted(uint256 indexed itemId);
-
-    ///@notice Emitted when winner is declared after voting
-    event WinnerDeclared(uint256 indexed itemId, string itemName);
 
     /// @notice Thrown when user votes for invalid item
     error InvalidItemID();
@@ -102,9 +99,8 @@ contract Voting {
     ///@notice Get the ultimate winner when the voting concludes
     ///@return itemId Id of the item
     ///@return itemName Item name
-    ///@custom:events Voted emitted when user votes item
     ///@custom:error NoItemsProposed Thrown when 0 items are proposed
-    function getWinner() external returns (uint256 itemId, string memory itemName) {
+    function getWinner() external view returns (uint256 itemId, string memory itemName) {
         uint256 blocksPassed = block.number - votingStartedAt;
 
         if(votingStartedAt == 0) {
@@ -123,8 +119,6 @@ contract Voting {
                 itemName = items[i].name;
             }
         }
-
-        emit WinnerDeclared(itemId, itemName);
     }
 
     ///@notice Check for any ongoing voting
