@@ -11,6 +11,6 @@
       "@nomiclabs/hardhat-ethers": ["./node_modules/hardhat-deploy-ethers"]
     }
   },
-  "include": ["./typechain", "./deploy", "./helpers"],
+  "include": ["./typechain", "./deploy", "./helpers", "./test"],
   "files": ["./hardhat.config.ts"]
 }
