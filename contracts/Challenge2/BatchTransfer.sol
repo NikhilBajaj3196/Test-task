@@ -1,8 +1,9 @@
-// SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "hardhat/console.sol";
 
 /**
  * @title BatchTransfer
@@ -38,7 +39,7 @@ contract BatchTransfer is Ownable {
         }
 
         for (uint256 i = 0; i < _to.length; i++) {
-            token.transfer(_to[i], _amounts[i]);
+            token.transferFrom(msg.sender, _to[i], _amounts[i]);
         }
 
         emit BatchTransferSuccess(_to, _amounts);
